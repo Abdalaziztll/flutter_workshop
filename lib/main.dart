@@ -1,4 +1,6 @@
-import 'package:clean_serive_layer/bloc/project_management_bloc.dart';
+import 'package:clean_serive_layer/bloc/task_manage_bloc.dart';
+import 'package:clean_serive_layer/core/model/request/taskreqmodel.dart';
+import 'package:clean_serive_layer/feature/project/bloc/project_management_bloc.dart';
 import 'package:clean_serive_layer/core/data/project_service/project_serivce.dart';
 import 'package:clean_serive_layer/core/model/error_handler/base_model.dart';
 import 'package:clean_serive_layer/core/model/reesponse/projrect_response_model.dart';
@@ -7,7 +9,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const DummyApp());
+  runApp(CreateTaskPage(
+    id: 1,
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -80,13 +84,14 @@ class ReallyDummyAppo extends StatelessWidget {
                 flex: 1,
                 child: ElevatedButton(
                     onPressed: () async {
-                      ResutlModel result = await ProjectServiceImp().getProject();
+                      ResutlModel result =
+                          await ProjectServiceImp().getProject();
                       if (result is ListOf<ProjectResponseModel>) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("Success To Fetch data"),
                           backgroundColor: Colors.green,
                         ));
-                
+
                         project.value = result;
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -114,6 +119,72 @@ class ReallyDummyAppo extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+TextEditingController taskDec = TextEditingController();
+String temp = '';
+
+class CreateTaskPage extends StatelessWidget {
+  CreateTaskPage({super.key, required this.id});
+  final int id;
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: BlocProvider(
+        create: (context) => TaskManageBloc(),
+        child: Builder(builder: (context) {
+          return Scaffold(
+            body: Column(
+              children: [
+                FloatingActionButton(onPressed: () {
+                  if (taskDec.text == '' || taskDec.text == null) {
+                    context.read<TaskManageBloc>().add(CreateNewTextFiel());
+                    taskDec.clear();
+                  } else {
+                    temp = taskDec.text;
+
+                    context.read<TaskManageBloc>().add(
+                          SubmitOneTask(
+                            oneTask: TaskRequestModel(
+                                taskDescription: taskDec.text,
+                                taskStatus: 'NEW',
+                                project_id: id),
+                          ),
+                        );
+                    context.read<TaskManageBloc>().add(CreateNewTextFiel());
+                  }
+                }),
+                BlocBuilder<TaskManageBloc, TaskManageState>(
+                  builder: (context, state) {
+                    if (state is NewTextFieldCreated) {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: state.tasks.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: TextField(
+                                  decoration:(state.tasks.length - 1 == index)
+                                      ? null
+                                      : InputDecoration(hintText: temp) ,
+                                  controller: (state.tasks.length - 1 == index)
+                                      ? taskDec
+                                      : null),
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

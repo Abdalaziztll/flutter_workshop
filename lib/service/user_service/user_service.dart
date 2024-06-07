@@ -10,15 +10,22 @@ class UserService {
 
   Future<ResultModel> logIn(UserModel user) async {
     try {
-      response = await dio.post(baseurl, data: user.toMap());
+      response = await dio.post(
+        baseurl,
+        data: user.toMap(),
+      );
       if (response.statusCode == 200) {
         // TODO : save token in shared preferences and get Header config
         return SuccessModel();
       } else {
-        return ErrorModel(messge: "The error might be not 200");
+        return ErrorModel(
+          messge: "The error might be not 200",
+        );
       }
     } on DioException catch (e) {
-      return ExceptionModel(message: e.message.toString());
+      return ExceptionModel(
+        message: e.message.toString(),
+      );
     }
   }
 }

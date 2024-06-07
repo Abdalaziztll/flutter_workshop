@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 class MockAnimalService extends Mock implements AnimalService {
   @override
   Future<ResultModel> getAnimals() async {
-    List<Map<String,dynamic>> temp = [
+    List<Map<String, dynamic>> temp = [
       {
         "name": "name 1",
         "image": "https://loremflickr.com/640/480/animals",
@@ -31,17 +31,24 @@ class MockAnimalService extends Mock implements AnimalService {
 
     if (temp.isEmpty) {
       List<AnimalModel> animalModel = List.generate(
-          temp.length,
-          (index) => AnimalModel.fromMap(temp[index]),
-        );
-        return ListOf(resutl: animalModel);
-    
+        temp.length,
+        (index) => AnimalModel.fromMap(
+          temp[index],
+        ),
+      );
+      return ListOf(
+        resutl: animalModel,
+      );
+
+      
     } else {
-       List<AnimalModel> animalModel = List.generate(
-          temp.length,
-          (index) => AnimalModel.fromMap(temp[index]),
-        );
-        return ListOf(resutl: animalModel);
+      List<AnimalModel> animalModel = List.generate(
+        temp.length,
+        (index) => AnimalModel.fromMap(temp[index]),
+      );
+      return ListOf(
+        resutl: animalModel,
+      );
     }
   }
 }

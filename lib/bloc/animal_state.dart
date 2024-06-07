@@ -7,10 +7,10 @@ sealed class AnimalState {}
 final class AnimalInitial extends AnimalState {}
 
 class SuccessGetAnimal extends AnimalState{
-  List<AnimalModel> result;
-  SuccessGetAnimal({
-    required this.result,
-  });
+  final List<AnimalModel> result;
+
+  SuccessGetAnimal({required this.result});
+ 
 }
 
 class ErrorFetchingData extends AnimalState {}

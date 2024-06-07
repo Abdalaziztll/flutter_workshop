@@ -14,7 +14,11 @@ class AnimalBloc extends Bloc<AnimalEvent, AnimalState> {
 
       var data = await MockAnimalService().getAnimals();
       if (data is ListOf<AnimalModel>) {
-        emit(SuccessGetAnimal(result: data.resutl));
+        emit(
+          SuccessGetAnimal(
+            result: data.resutl,
+          ),
+        );
       } else {
         emit(ErrorFetchingData());
       }

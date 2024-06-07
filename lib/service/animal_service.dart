@@ -9,18 +9,28 @@ class AnimalService {
 
   Future<ResultModel> getAnimals() async {
     try {
-      response = await dio.get(baseUrl);
+      response = await dio.get(
+        baseUrl,
+      );
       if (response.statusCode == 200) {
         List<AnimalModel> animalModel = List.generate(
           response.data.length,
-          (index) => AnimalModel.fromMap(response.data[index]),
+          (index) => AnimalModel.fromMap(
+            response.data[index],
+          ),
         );
-        return ListOf(resutl: animalModel);
+        return ListOf(
+          resutl: animalModel,
+        );
       } else {
-        return ErrorModel(messge: "");
+        return ErrorModel(
+          messge: "",
+        );
       }
     } on DioException catch (e) {
-      return ExceptionModel(message: e.message!);
+      return ExceptionModel(
+        message: e.message!,
+      );
     }
   }
 }

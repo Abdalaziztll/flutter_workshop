@@ -11,7 +11,7 @@ class SuccessToLogin extends AuthState {}
 class Loading extends AuthState {}
 
 class Error extends AuthState {
-  String message;
+ final String message;
   Error({
     required this.message,
   });

@@ -5,7 +5,7 @@ part of 'auth_bloc.dart';
 sealed class AuthEvent {}
 
 class Login extends AuthEvent {
-  UserModel user;
+ final UserModel user;
   Login({
     required this.user,
   });

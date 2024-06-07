@@ -10,13 +10,19 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
-    on<Login>((event, emit) async{
+    on<Login>((event, emit) async {
       emit(Loading());
-      var status = await MockUserService().logIn(event.user);
+      var status = await MockUserService().logIn(
+        event.user,
+      );
       if (status is SuccessModel) {
         emit(SuccessToLogin());
       } else {
-        emit(Error(message: (status as ExceptionModel).message));
+        emit(
+          Error(
+            message: (status as ExceptionModel).message,
+          ),
+        );
       }
     });
   }

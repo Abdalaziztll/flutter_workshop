@@ -2,11 +2,10 @@
 part of 'auth_bloc.dart';
 
 @immutable
-sealed class AuthState extends Equatable{}
+sealed class AuthState {}
 
 final class AuthInitial extends AuthState {
-  @override
-  List<Object?> get props => [];
+  
 }
 
 class Success extends AuthState {
@@ -15,13 +14,8 @@ class Success extends AuthState {
     required this.user,
   });
   
-  @override
-  // TODO: implement props
-  List<Object?> get props => [user];
 }
 
 class Loading extends AuthState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  
 }

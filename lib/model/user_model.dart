@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
 
-class UserModel extends Equatable {
+class UserModel {
   String firstName;
   String lastName;
   String username;
@@ -75,14 +74,4 @@ class UserModel extends Equatable {
     return 'UserModel(firstName: $firstName, lastName: $lastName, username: $username, phone: $phone, password: $password, confirmPassword: $confirmPassword, birthDate: $birthDate)';
   }
 
-  @override
-  List<Object?> get props => [
-        firstName,
-        lastName,
-        username,
-        phone,
-        password,
-        confirmPassword,
-        birthDate
-      ];
 }

@@ -5,7 +5,7 @@ class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static Future<void> init() async {
-    final InitializationSettings settings =const InitializationSettings(
+    final InitializationSettings settings = InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
       iOS: DarwinInitializationSettings(),
     );
@@ -49,11 +49,4 @@ class LocalNotificationService {
     );
   }
 
-  static Future<void> showBasicNotificationWhenAddForm() async {
-    await showBasicNotification(
-      channelId: 'id2',
-      title: 'لقد تم إضافة فورم جديد',
-      body: 'يرجى الإجابة عنه',
-    );
-  }
 }

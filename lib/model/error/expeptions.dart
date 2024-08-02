@@ -1,0 +1,1 @@
+class UsedUserNameBefore implements Exception {}
